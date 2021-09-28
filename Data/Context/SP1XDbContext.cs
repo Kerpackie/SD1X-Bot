@@ -18,9 +18,10 @@ namespace Data.Context
         {
         }
 
-        public DbSet<ServerModel> Servers { get; set; }
-        public DbSet<HTMLTagModel> HTMLTags { get; set; }
-        public DbSet<CSSTagModel> CSSTags { get; set; }
-        public DbSet<CSharpTagModel> CSharpTags { get; set; }
+        public DbSet<Server> Servers { get; set; }
+        public DbSet<Notes> Notes { get; set; }
+        public DbSet<HTMLTag> HTMLTags { get; set; }
+        public DbSet<CSSTag> CSSTags { get; set; }
+        public DbSet<CSharpTag> CSharpTags { get; set; }
     }
 }

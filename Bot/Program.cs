@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Bot.Services;
+using Data;
 using Data.Context;
 using Discord;
 using Discord.Addons.Hosting;
@@ -14,7 +15,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Bot
 {
-    internal class DataAccessLayer
+    public class Program
     {
         private static async Task Main()
         {

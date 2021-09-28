@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Data.Context;
+using Data;
 using Discord;
 using Discord.Addons.Hosting;
 using Discord.Commands;
@@ -21,17 +23,18 @@ namespace Bot.Services
         private readonly CommandService _service;
         private readonly IConfiguration _configuration;
         private readonly ILogger<CommandHandler> _logger;
-        //private readonly SP1XDbContext _context;
+        private readonly SP1XDbContext _context;
         //private readonly DataAccessLayer _dataAccessLayer;
+        private readonly DataAccessLayer _dataAccessLayer;
 
-        public CommandHandler(IServiceProvider provider, DiscordSocketClient client, CommandService service, IConfiguration configuration, ILogger<CommandHandler> logger) : base(client, logger)
+        public CommandHandler(IServiceProvider provider, DiscordSocketClient client, CommandService service, IConfiguration configuration, SP1XDbContext dbContext, DataAccessLayer dataAccessLayer,  ILogger<CommandHandler> logger) : base(client, logger)
         {
             _provider = provider;
             _client = client;
             _service = service;
             _configuration = configuration;
-            //_dataAccessLayer = dataAccessLayer;
-            //_context = context;
+            _dataAccessLayer = dataAccessLayer;
+            _context = dbContext;
         }
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)

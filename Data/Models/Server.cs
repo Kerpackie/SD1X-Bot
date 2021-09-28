@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public class ServerModel
+    public class Server
     {
         /// <summary>
         /// Gets or Sets the ID of the Server.

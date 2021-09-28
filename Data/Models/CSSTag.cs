@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public class CSharpTagModel
+    public class CSSTag
     {
         public int Id { get; set; }
         public string Tag { get; set; }
