@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bot.Modules;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -23,5 +24,6 @@ namespace Data.Context
         public DbSet<HTMLTag> HTMLTags { get; set; }
         public DbSet<CSSTag> CSSTags { get; set; }
         public DbSet<CSharpTag> CSharpTags { get; set; }
+        public DbSet<Birthday> Birthdays { get; set; }
     }
 }

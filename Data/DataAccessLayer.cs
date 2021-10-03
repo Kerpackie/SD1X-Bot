@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Context;
 using Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
@@ -55,7 +53,7 @@ namespace Data
             var tag = await _dbContext.CSharpTags
                 .FirstOrDefaultAsync(x => x.Tag == tagName);
 
-            if (tagName is null)
+            if (tag is null)
             {
                 return;
             }
@@ -129,7 +127,7 @@ namespace Data
             var tag = await _dbContext.CSSTags
                 .FirstOrDefaultAsync(x => x.Tag == tagName);
 
-            if (tagName is null)
+            if (tag is null)
             {
                 return;
             }
@@ -203,7 +201,7 @@ namespace Data
             var tag = await _dbContext.HTMLTags
                 .FirstOrDefaultAsync(x => x.Tag == tagName);
 
-            if (tagName is null)
+            if (tag is null)
             {
                 return;
             }
@@ -240,10 +238,10 @@ namespace Data
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Notes> GetNote(string tag)
+        public async Task<Notes> GetNote(string name)
         {
             return await _dbContext.Notes
-                .FirstOrDefaultAsync(x => x.Tag == tag);
+                .FirstOrDefaultAsync(x => x.Name == name);
         }
 
         public async Task<IEnumerable<Notes>> GetNotes()
@@ -252,19 +250,19 @@ namespace Data
                 .ToListAsync();
         }
 
-        public async Task CreateNote(string tagName, ulong ownerId, string content)
+        public async Task CreateNote(string name, ulong ownerId, string content)
         {
-            var tag = await _dbContext.Notes
-                .FirstOrDefaultAsync(x => x.Tag == tagName);
+            var note = await _dbContext.Notes
+                .FirstOrDefaultAsync(x => x.Name == name);
 
-            if (tag != null)
+            if (note != null)
             {
                 return;
             }
 
             _dbContext.Add(new Notes
             {
-                Tag = tagName,
+                Name = name,
                 OwnerId = ownerId,
                 Content = content,
             });
@@ -272,45 +270,45 @@ namespace Data
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task EditNoteContent(string tagName, string content)
+        public async Task EditNoteContent(string name, string content)
         {
-            var tag = await _dbContext.Notes
-                .FirstOrDefaultAsync(x => x.Tag == tagName);
+            var note = await _dbContext.Notes
+                .FirstOrDefaultAsync(x => x.Name == name);
 
-            if (tagName is null)
+            if (note is null)
             {
                 return;
             }
 
-            tag.Content = content;
+            note.Content = content;
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task EditNoteOwner(string tagName, ulong ownerId)
+        public async Task EditNoteOwner(string name, ulong ownerId)
         {
-            var tag = await _dbContext.Notes
-                .FirstOrDefaultAsync(x => x.Tag == tagName);
+            var note = await _dbContext.Notes
+                .FirstOrDefaultAsync(x => x.Name == name);
 
-            if (tag is null)
+            if (note is null)
             {
                 return;
             }
 
-            tag.OwnerId = ownerId;
+            note.OwnerId = ownerId;
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteNote(string tagName)
+        public async Task DeleteNote(string name)
         {
-            var tag = await _dbContext.Notes
-                .FirstOrDefaultAsync(x => x.Tag == tagName);
+            var note = await _dbContext.Notes
+                .FirstOrDefaultAsync(x => x.Name == name);
 
-            if (tag is null)
+            if (note is null)
             {
                 return;
             }
 
-            _dbContext.Remove(tag);
+            _dbContext.Remove(note);
             await _dbContext.SaveChangesAsync();
         }
 
