@@ -24,7 +24,6 @@ namespace Bot.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger<CommandHandler> _logger;
         private readonly SP1XDbContext _context;
-        //private readonly DataAccessLayer _dataAccessLayer;
         private readonly DataAccessLayer _dataAccessLayer;
 
         public CommandHandler(IServiceProvider provider, DiscordSocketClient client, CommandService service, IConfiguration configuration, SP1XDbContext dbContext, DataAccessLayer dataAccessLayer,  ILogger<CommandHandler> logger) : base(client, logger)
