@@ -34,9 +34,10 @@ namespace Bot.Modules
             }
 
             var memeEmbed = new SP1XEmbedBuilder()
-                .WithTitle($"Title: {meme.Title}")
+                .WithTitle($"{meme.Title}")
                 .WithImage($"{meme.Url}")
-                .WithFooter($"Upvotes: {meme.Ups}    Subreddit: {meme.Subreddit}")
+                .WithFooter($"⬆️: {meme.Ups} Source: {meme.Author} @ /r/{meme.Subreddit}")
+                .WithStyle(EmbedStyle.Image)
                 .Build();
 
             await Context.Channel.SendMessageAsync(embed: memeEmbed);

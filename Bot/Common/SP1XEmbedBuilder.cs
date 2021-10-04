@@ -227,7 +227,7 @@ namespace Bot.Common
                 case EmbedStyle.Image:
                     builder
                         .WithTitle(this.title)
-                        .WithColor(Colors.Quest);
+                        .WithColor(Colors.Discord);
                     break;
             }
 
