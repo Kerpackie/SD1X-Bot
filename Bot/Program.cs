@@ -50,6 +50,7 @@ namespace Bot
                 {
                     services
                         .AddHostedService<CommandHandler>()
+                        .AddHttpClient()
                         .AddDbContext<SP1XDbContext>(x =>
                              x.UseMySql(
                                 context.Configuration["Database"],
