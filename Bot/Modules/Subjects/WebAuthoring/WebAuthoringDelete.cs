@@ -17,8 +17,8 @@ namespace Bot.Modules.Subjects.WebAuthoring
         {
         }
 
-        [Command("webauthoringcreate", RunMode = RunMode.Async)]
-        [Alias("webauthcreate")]
+        [Command("webauthoringdelete", RunMode = RunMode.Async)]
+        [Alias("webauthdelete")]
 
         public async Task WordProcessingDeleteCmd(string name, [Remainder] string argument)
         {
