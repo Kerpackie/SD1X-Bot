@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Bot.Common;
 using Discord;
@@ -9,11 +7,11 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 
-namespace Bot.Modules
+namespace Bot.Modules.Notes
 {
-    public class CSharpModule : SP1XModuleBase
+    public class CSharp : SP1XModuleBase
     {
-        public CSharpModule(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
+        public CSharp(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
         {
         }
 
@@ -48,6 +46,7 @@ namespace Bot.Modules
         }
 
         [Command("csharptag", RunMode = RunMode.Async)]
+        [Alias("c#")]
         public async Task CSharpTag([Remainder] string argument)
         {
             var arguments = argument.Split(" ");

@@ -1,19 +1,16 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Bot.Common;
-using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Microsoft.Extensions.Configuration;
 
-namespace Bot.Modules
+namespace Bot.Modules.Notes
 {
-    public class AssignmentModule : SP1XModuleBase
+    public class Assignment : SP1XModuleBase
     {
-        public AssignmentModule(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
+        public Assignment(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
         {
             
         }
@@ -48,7 +45,7 @@ namespace Bot.Modules
         }
 
         [Command("assignment", RunMode = RunMode.Async)]
-        public async Task Assignment(string subject, [Remainder] string argument)
+        public async Task AssignmentCmd(string subject, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");
 

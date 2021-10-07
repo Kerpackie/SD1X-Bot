@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Bot.Common;
 using Discord;
@@ -9,11 +7,11 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 
-namespace Bot.Modules
+namespace Bot.Modules.Notes
 {
-    public class HTMLTagModule : SP1XModuleBase
+    public class HTMLTag : SP1XModuleBase
     {
-        public HTMLTagModule(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
+        public HTMLTag(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
         {
         }
 
