@@ -83,7 +83,7 @@ namespace Bot.Modules
             switch (subject)
             {
                 case "create":
-                    var assignment = await _DataAccessLayer.GetCSharpTag(subject);
+                    var assignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
                     if (assignment != null)
                     {
                         var embed = new SP1XEmbedBuilder()

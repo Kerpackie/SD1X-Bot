@@ -83,7 +83,7 @@ namespace Bot.Modules.Subjects.FOOP
                     await _DataAccessLayer.CreateAssignment(subject, Context.User.Id, arguments[1],
                         string.Join(" ", arguments.Skip(2)));
 
-                    var prefix = await _DataAccessLayer.GetGuildPrefix(Context.Guild.Id);
+                    var prefix = "!";
 
                     var created = new SP1XEmbedBuilder()
                         .WithTitle("FOOP Assignment Created!")
