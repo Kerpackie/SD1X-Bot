@@ -9,9 +9,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace Bot.Modules.Notes
 {
-    public class CSSTagModule : SP1XModuleBase
+    public class CSSTag : SP1XModuleBase
     {
-        public CSSTagModule(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
+        public CSSTag(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
         {
         }
 
@@ -45,7 +45,8 @@ namespace Bot.Modules.Notes
         }
 
         [Command("csstag", RunMode = RunMode.Async)]
-        public async Task CSSTag([Remainder] string argument)
+        [Alias("css")]
+        public async Task CSSTagCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
 
