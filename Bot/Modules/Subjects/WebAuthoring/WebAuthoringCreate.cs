@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Discord;
 
 namespace Bot.Modules.Subjects.WebAuthoring
 {
@@ -19,6 +20,7 @@ namespace Bot.Modules.Subjects.WebAuthoring
 
         [Command("webauthoringcreate", RunMode = RunMode.Async)]
         [Alias("webauthcreate")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
 
         public async Task WordProcessingCreateCmd(string name, [Remainder] string argument)
         {
@@ -28,22 +30,11 @@ namespace Bot.Modules.Subjects.WebAuthoring
             var socketGuildUser = Context.User as SocketGuildUser;
 
             var foopAssignment = await _DataAccessLayer.GetAssignment(subject, name);
-            if (foopAssignment == null)
+            if (foopAssignment != null)
             {
                 var embed = new SP1XEmbedBuilder()
-                    .WithTitle("Not Found")
-                    .WithDescription("The assignment you requested could not be found.")
-                    .WithStyle(EmbedStyle.Error)
-                    .Build();
-
-                await Context.Channel.SendMessageAsync(embed: embed);
-                return;
-            }
-            if (foopAssignment.OwnerId != Context.User.Id && !socketGuildUser.GuildPermissions.Administrator)
-            {
-                var embed = new SP1XEmbedBuilder()
-                    .WithTitle("Access Denied!")
-                    .WithDescription("You need to be a student or administrator to create an assignment.")
+                    .WithTitle("Already Exists")
+                    .WithDescription("The assignment you requested already exists.")
                     .WithStyle(EmbedStyle.Error)
                     .Build();
 
@@ -58,7 +49,7 @@ namespace Bot.Modules.Subjects.WebAuthoring
 
             var created = new SP1XEmbedBuilder()
                 .WithTitle("Assignment Created!")
-                .WithDescription($"The Assignment has been successfully created. You can view it by using `{prefix}wp {arguments[1]}`")
+                .WithDescription($"The Assignment has been successfully created. You can view it by using `!{prefix}wp {arguments[0]}`")
                 .WithStyle(EmbedStyle.Success)
                 .Build();
             await Context.Channel.SendMessageAsync(embed: created);

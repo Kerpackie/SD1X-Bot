@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Bot.Common;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
@@ -16,11 +17,11 @@ namespace Bot.Modules.Notes
         }
 
         [Command("assignments", RunMode = RunMode.Async)]
-        public async Task Assignments()
+        public async Task GetAssignments()
         {
             var assignments = await _DataAccessLayer.GetAssignments();
 
-            if (!assignments.Any())
+            if (assignments == null)
             {
                 var noAssignments = new SP1XEmbedBuilder()
                     .WithTitle("No Assignments Found")
@@ -32,16 +33,32 @@ namespace Bot.Modules.Notes
                 return;
             }
 
-            string description = string.Join("`", assignments.Select(x => x.Subject), " ", assignments.Select(x => x.Name), "`\n");
+            ////string description = string.Join("`", assignments.Select(x => x.Subject.Single()), " ", assignments.Select(x => x.Name.SingleOrDefault()), "`\n");
+            //var prefix = "!";
             var prefix = "!";
+            var assignmentEmbedBuilder = new EmbedBuilder()
+                .WithDescription("Run the command do do something with the assignment.");
+            foreach (var assignment in assignments)
+            {
+                var assignmentEmbedField = new EmbedFieldBuilder()
+                    .WithName($"{assignment.Subject} ID: {assignment.Id}")
+                    .WithValue($"{assignment.Name}")
+                    .WithIsInline(true);
 
-            var list = new SP1XEmbedBuilder()
-                .WithTitle($"Assignments Due: ({assignments.Count()}")
-                .WithDescription(description)
-                .WithFooter($"Use `{prefix}<subject> <name>` to view an Assignment.")
-                .WithStyle(EmbedStyle.Information)
-                .Build();
-            await this.Context.Channel.SendMessageAsync(embed: list);
+                assignmentEmbedBuilder.AddField(assignmentEmbedField);
+            }
+
+            await Context.Channel.SendMessageAsync(null, false, assignmentEmbedBuilder.Build());
+
+            //var list = new EmbedBuilder()
+            //    .WithTitle($"Assignments Due: ({assignments.Count()})");
+            //    //.WithDescription(description)
+
+
+            //list.WithFooter($"Use `{prefix}<subject> <name>` to view an Assignment.");
+            //// list.WithStyle(EmbedStyle.Information);
+            //list.Build();
+            //await this.Context.Channel.SendMessageAsync(embed: list);
         }
 
         [Command("assignment", RunMode = RunMode.Async)]

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bot.Modules.Subjects.WordProcessing
 {
-    class WordProcessingEdit : SP1XModuleBase
+    public class WordProcessingEdit : SP1XModuleBase
     {
         public WordProcessingEdit(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
         {

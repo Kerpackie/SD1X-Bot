@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bot.Modules.Subjects.WebAuthoring
 {
-    class WebAuthoringEdit : SP1XModuleBase
+    public class WebAuthoringEdit : SP1XModuleBase
     {
         public WebAuthoringEdit(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
         {

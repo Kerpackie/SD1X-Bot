@@ -42,7 +42,7 @@ namespace Bot.Modules.Notes
                 .WithFooter($"Use \"{prefix}csharptag name\" to view a C# Tag.")
                 .WithStyle(EmbedStyle.Information)
                 .Build();
-            await this.Context.Channel.SendMessageAsync(embed: list);
+            await Context.Channel.SendMessageAsync(embed: list);
         }
 
         [Command("csharptag", RunMode = RunMode.Async)]

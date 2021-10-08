@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bot.Common;
+using Bot.Modules.Notes;
 using Discord;
 using Discord.Commands;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,14 @@ namespace Bot.Modules.Config.AssignmentChannels
             }
 
             string description = string.Join("\n", assignmentChannels.Select(x => x.Channel));
+            var prefix = "!";
+
+            var list = new SP1XEmbedBuilder()
+                .WithTitle($"Assignment Channels: ({assignmentChannels.Count()})")
+                .WithDescription(description)
+                .WithFooter($"Command run by: {Context.User.Id}")
+                .Build();
+            await Context.Channel.SendMessageAsync(embed: list);
         }
     }
 }

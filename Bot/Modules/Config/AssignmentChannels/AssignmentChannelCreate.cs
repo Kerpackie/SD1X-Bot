@@ -25,7 +25,7 @@ namespace Bot.Modules.Config.AssignmentChannels
             var socketGuildUser = Context.User as SocketGuildUser;
             var newChannel = await _DataAccessLayer.GetAssignmentChannel(channelId);
 
-            if (newChannel != null)
+            if (newChannel == null)
             {
                 var guildId = Context.Guild.Id;
                 await _DataAccessLayer.CreateAssignmentChannel(channelId, guildId);
@@ -36,6 +36,7 @@ namespace Bot.Modules.Config.AssignmentChannels
                     .WithStyle(EmbedStyle.Success)
                     .Build();
                 await Context.Channel.SendMessageAsync(embed: embed);
+                return;
             }
 
             var exists = new SP1XEmbedBuilder()
