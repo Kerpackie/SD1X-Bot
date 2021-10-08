@@ -37,7 +37,7 @@ namespace Bot.Modules.Config.AssignmentChannels
             }
 
             string description = string.Join("\n", assignmentChannels.Select(x => x.Channel));
-            var prefix = "!";
+            //var prefix = "!";
 
             var list = new SP1XEmbedBuilder()
                 .WithTitle($"Assignment Channels: ({assignmentChannels.Count()})")

@@ -50,6 +50,7 @@ namespace Bot.Common
                 .WithDescription(description)
                 .WithTitle(title)
                 .WithStyle(EmbedStyle.Information)
+                .WithFooter($"Assignment Sent: {DateTimeOffset.UtcNow.ToString()} UTC")
                 .Build();
 
             var message = await channel.SendMessageAsync(embed: embed);

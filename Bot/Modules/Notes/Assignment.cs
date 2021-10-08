@@ -33,11 +33,10 @@ namespace Bot.Modules.Notes
                 return;
             }
 
-            ////string description = string.Join("`", assignments.Select(x => x.Subject.Single()), " ", assignments.Select(x => x.Name.SingleOrDefault()), "`\n");
-            //var prefix = "!";
-            var prefix = "!";
             var assignmentEmbedBuilder = new EmbedBuilder()
-                .WithDescription("Run the command do do something with the assignment.");
+                .WithColor(Colors.Information)
+                .WithTitle($"Assignments Due: {assignments.Count()}")
+                .WithDescription("Run the command `!<subject> <name>` to get information on an assignment");
             foreach (var assignment in assignments)
             {
                 var assignmentEmbedField = new EmbedFieldBuilder()
@@ -49,16 +48,6 @@ namespace Bot.Modules.Notes
             }
 
             await Context.Channel.SendMessageAsync(null, false, assignmentEmbedBuilder.Build());
-
-            //var list = new EmbedBuilder()
-            //    .WithTitle($"Assignments Due: ({assignments.Count()})");
-            //    //.WithDescription(description)
-
-
-            //list.WithFooter($"Use `{prefix}<subject> <name>` to view an Assignment.");
-            //// list.WithStyle(EmbedStyle.Information);
-            //list.Build();
-            //await this.Context.Channel.SendMessageAsync(embed: list);
         }
 
         [Command("assignment", RunMode = RunMode.Async)]
