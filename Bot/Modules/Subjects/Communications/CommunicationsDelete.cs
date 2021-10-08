@@ -60,7 +60,7 @@ namespace Bot.Modules.Subjects.Communications
                 .WithStyle(EmbedStyle.Success)
                 .Build();
 
-            await this.Context.Channel.SendMessageAsync(embed: deleted);
+            await Context.Channel.SendMessageAsync(embed: deleted);
         }
     }
 }

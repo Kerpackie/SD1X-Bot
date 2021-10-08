@@ -10,5 +10,6 @@ namespace Data.Models
     {
         public int Id { get; set; }
         public ulong Channel { get; set; }
+        public ulong GuildId { get; set; }
     }
 }

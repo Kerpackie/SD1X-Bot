@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bot.Common;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
@@ -18,6 +19,7 @@ namespace Bot.Modules.Config.AssignmentChannels
         }
 
         [Command("assignmentchannelcreate")]
+        [RequireUserPermission(GuildPermission.Administrator)]
         public async Task AssignmentChannelCreateCmd(ulong channelId)
         {
             var socketGuildUser = Context.User as SocketGuildUser;
@@ -25,7 +27,8 @@ namespace Bot.Modules.Config.AssignmentChannels
 
             if (newChannel != null)
             {
-                await _DataAccessLayer.CreateAssignmentChannel(channelId);
+                var guildId = Context.Guild.Id;
+                await _DataAccessLayer.CreateAssignmentChannel(channelId, guildId);
 
                 var embed = new SP1XEmbedBuilder()
                     .WithTitle("New Assignment Channel Added!")

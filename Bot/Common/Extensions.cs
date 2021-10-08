@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Discord;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 
@@ -40,6 +41,19 @@ namespace Bot.Common
             {
                 return false;
             }
+        }
+
+        public static async Task<IMessage> SendAssignmentAsync(this ITextChannel channel, string title,
+            string description)
+        {
+            var embed = new SP1XEmbedBuilder()
+                .WithDescription(description)
+                .WithTitle(title)
+                .WithStyle(EmbedStyle.Information)
+                .Build();
+
+            var message = await channel.SendMessageAsync(embed: embed);
+            return message;
         }
     }
 }

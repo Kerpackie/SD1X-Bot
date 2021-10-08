@@ -23,6 +23,12 @@ namespace Data
                 .FirstOrDefaultAsync(x => x.Name == name && x.Subject == subject);
         }
 
+        public async Task<Assignment> GetAssignmentId(int id)
+        {
+            return await _dbContext.Assignments
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<Assignment> GetAssignmentSubject(string subject, string name)
         {
             return await _dbContext.Assignments
@@ -155,13 +161,14 @@ namespace Data
                 .FirstOrDefaultAsync(x => x.Channel == channelId);
         }
 
-        public async Task<IEnumerable<AssignmentChannel>> GetAssignmentChannels()
+        public async Task<IEnumerable<AssignmentChannel>> GetAssignmentChannels(ulong guildId)
         {
             return await _dbContext.AssignmentChannels
+                .Where(x => x.GuildId == guildId)
                 .ToListAsync();
         }
 
-        public async Task CreateAssignmentChannel(ulong channelId)
+        public async Task CreateAssignmentChannel(ulong channelId, ulong guildId)
         {
             var channel = await _dbContext.AssignmentChannels
                 .FirstOrDefaultAsync(x => x.Channel == channelId);
@@ -173,7 +180,8 @@ namespace Data
 
             _dbContext.Add(new AssignmentChannel
             {
-                Channel = channelId
+                Channel = channelId,
+                GuildId = guildId
             });
 
             await _dbContext.SaveChangesAsync();
