@@ -33,7 +33,7 @@ namespace Bot.Modules.Notes
             }
 
             string description = string.Join(", ", htmlTags.Select(x => x.Tag));
-            var prefix = _DataAccessLayer.GetGuildPrefix(Context.Guild.Id);
+            var prefix = "!";
 
             var list = new SP1XEmbedBuilder()
                 .WithTitle($"HTML Tags ({htmlTags.Count()}")

@@ -109,7 +109,7 @@ namespace Bot.Modules.Notes
                     await _DataAccessLayer.CreateCSSTag(arguments[1], Context.User.Id,
                         string.Join(" ", arguments.Skip(2)));
 
-                    var prefix = await _DataAccessLayer.GetGuildPrefix(Context.Guild.Id);
+                    var prefix = "!";
 
                     var created = new SP1XEmbedBuilder()
                         .WithTitle("CSS Tag Created!")
@@ -223,7 +223,7 @@ namespace Bot.Modules.Notes
                     {
                         var embed = new SP1XEmbedBuilder()
                             .WithTitle("Access Denied!")
-                            .WithDescription("You need to be the owner of this tag or an administrator to edit the content of this CSS Tag.")
+                            .WithDescription("You need to be the owner of this tag or an administrator to delete the content of this CSS Tag.")
                             .WithStyle(EmbedStyle.Error)
                             .Build();
 

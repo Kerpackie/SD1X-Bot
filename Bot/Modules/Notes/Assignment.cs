@@ -40,8 +40,8 @@ namespace Bot.Modules.Notes
             foreach (var assignment in assignments)
             {
                 var assignmentEmbedField = new EmbedFieldBuilder()
-                    .WithName($"{assignment.Subject} ID: {assignment.Id}")
-                    .WithValue($"{assignment.Name}")
+                    .WithName($"{assignment.Subject}")
+                    .WithValue($"{assignment.Name} \n `ID: {assignment.Id}`")
                     .WithIsInline(true);
 
                 assignmentEmbedBuilder.AddField(assignmentEmbedField);
@@ -51,80 +51,31 @@ namespace Bot.Modules.Notes
         }
 
         [Command("assignment", RunMode = RunMode.Async)]
-        public async Task AssignmentCmd(string subject, [Remainder] string argument)
+        public async Task AssignmentCmd(string subject, string name)
         {
-            var arguments = argument.Split(" ");
 
-            if (subject != "create")
+            var assignment = await _DataAccessLayer.GetAssignment(subject, name);
+            if (assignment is null)
             {
-                var assignment = await _DataAccessLayer.GetAssignment(subject, argument);
-                if (assignment is null)
-                {
-                    var embed = new SP1XEmbedBuilder()
-                        .WithTitle("Not Found")
-                        .WithDescription("The assignment you requested could not be found.")
-                        .WithStyle(EmbedStyle.Error)
-                        .Build();
-
-                    await Context.Channel.SendMessageAsync(embed: embed);
-                    return;
-                }
-
-                var assignmentEmbed = new SP1XEmbedBuilder()
-                    .WithTitle(assignment.Name)
-                    .WithDescription(assignment.Content)
-                    .WithFooter($"ID: {assignment.Id}")
-                    .WithStyle(EmbedStyle.Information)
+                var embed = new SP1XEmbedBuilder()
+                    .WithTitle("Not Found")
+                    .WithDescription("The assignment you requested could not be found.")
+                    .WithStyle(EmbedStyle.Error)
                     .Build();
 
-                await Context.Channel.SendMessageAsync(embed: assignmentEmbed);
+                await Context.Channel.SendMessageAsync(embed: embed);
                 return;
             }
 
-            var socketGuildUser = Context.User as SocketGuildUser;
+            var assignmentEmbed = new SP1XEmbedBuilder()
+                .WithTitle(assignment.Name)
+                .WithDescription(assignment.Content)
+                .WithFooter($"ID: {assignment.Id}")
+                .WithStyle(EmbedStyle.Information)
+                .Build();
 
-            switch (subject)
-            {
-                case "create":
-                    var assignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
-                    if (assignment != null)
-                    {
-                        var embed = new SP1XEmbedBuilder()
-                            .WithTitle("Already Exists")
-                            .WithDescription("There already exists an assignment in that subject, with that name.")
-                            .WithStyle(EmbedStyle.Error)
-                            .Build();
+            await Context.Channel.SendMessageAsync(embed: assignmentEmbed);
 
-                        await Context.Channel.SendMessageAsync(embed: embed);
-                        return;
-                    }
-
-                    if (!Context.User.IsPromoted())
-                    {
-                        var embed = new SP1XEmbedBuilder()
-                            .WithTitle("Access Denied!")
-                            .WithDescription("You need to be a student or administrator to create an assignment.")
-                            .WithStyle(EmbedStyle.Error)
-                            .Build();
-
-                        await Context.Channel.SendMessageAsync(embed: embed);
-                        return;
-                    }
-
-                    await _DataAccessLayer.CreateAssignment(subject, Context.User.Id,
-                        arguments[0], string.Join(" ", arguments.Skip(1)));
-
-                    var prefix = "!";
-
-                    var created = new SP1XEmbedBuilder()
-                        .WithTitle("Assignment Created!")
-                        .WithDescription(
-                            $"The assignment has been successfully created. You can view it by using `{prefix}assignment {arguments[0]}`")
-                        .WithStyle(EmbedStyle.Success)
-                        .Build();
-                    await Context.Channel.SendMessageAsync(embed: created);
-                    break;
-            }
         }
     }
 }
