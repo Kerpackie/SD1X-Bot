@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Bot.Services;
+using Bot.Utilities;
 using Data;
 using Data.Context;
 using Discord;
@@ -55,7 +56,8 @@ namespace Bot
                              x.UseMySql(
                                 context.Configuration["Database"],
                                 new MySqlServerVersion(new Version(8, 0, 23))))
-                        .AddSingleton<DataAccessLayer>();
+                        .AddSingleton<DataAccessLayer>()
+                        .AddSingleton<AssignmentControl>();
                 })
                 .UseConsoleLifetime();
 

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Bot.Common;
 using Discord;
@@ -9,58 +7,58 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
 
-namespace Bot.Modules
+namespace Bot.Modules.Notes
 {
-    public class CSharpModule : SP1XModuleBase
+    public class CSSTag : SP1XModuleBase
     {
-        public CSharpModule(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
+        public CSSTag(IServiceProvider serviceProvider, IConfiguration configuration) : base(serviceProvider, configuration)
         {
         }
 
-        [Command("csharptags", RunMode = RunMode.Async)]
-        [Alias("c#tags")]
-        public async Task CSharpTags()
+        [Command("csstags", RunMode = RunMode.Async)]
+        public async Task CSSTags()
         {
-            var cSharpTags = await _DataAccessLayer.GetCSharpTags();
+            var cssTags = await _DataAccessLayer.GetCSSTags();
 
-            if (!cSharpTags.Any())
+            if (!cssTags.Any())
             {
-                var noCSharpTags = new SP1XEmbedBuilder()
-                    .WithTitle("No C# Tags Found")
-                    .WithDescription("This server does not have any C# Tags yet.")
+                var noCSSTags = new SP1XEmbedBuilder()
+                    .WithTitle("No CSS Tags Found")
+                    .WithDescription("This server does not have any CSS Tags yet.")
                     .WithStyle(EmbedStyle.Error)
                     .Build();
 
-                await Context.Channel.SendMessageAsync(embed: noCSharpTags);
+                await Context.Channel.SendMessageAsync(embed: noCSSTags);
                 return;
             }
 
-            string description = string.Join(", ", cSharpTags.Select(x => x.Tag));
+            string description = string.Join(", ", cssTags.Select(x => x.Tag));
             var prefix = _DataAccessLayer.GetGuildPrefix(Context.Guild.Id);
 
             var list = new SP1XEmbedBuilder()
-                .WithTitle($"C# Tags ({cSharpTags.Count()}")
+                .WithTitle($"CSS Tags ({cssTags.Count()}")
                 .WithDescription(description)
-                .WithFooter($"Use \"{prefix}csharptag name\" to view a C# Tag.")
+                .WithFooter($"Use \"{prefix}csstag name\" to view a CSS Tag.")
                 .WithStyle(EmbedStyle.Information)
                 .Build();
             await this.Context.Channel.SendMessageAsync(embed: list);
         }
 
-        [Command("csharptag", RunMode = RunMode.Async)]
-        public async Task CSharpTag([Remainder] string argument)
+        [Command("csstag", RunMode = RunMode.Async)]
+        [Alias("css")]
+        public async Task CSSTagCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
 
             if (arguments.Count() == 1 && arguments[0] != "create" && arguments[0] != "edit" &&
                 arguments[0] != "transfer" && arguments[0] != "delete")
             {
-                var cSharpTag = await _DataAccessLayer.GetCSharpTag(arguments[0]);
-                if (cSharpTag is null)
+                var cssTag = await _DataAccessLayer.GetCSSTag(arguments[0]);
+                if (cssTag is null)
                 {
                     var embed = new SP1XEmbedBuilder()
                         .WithTitle("Not Found")
-                        .WithDescription("The C# Tag you requested could not be found.")
+                        .WithDescription("The CSS Tag you requested could not be found.")
                         .WithStyle(EmbedStyle.Error)
                         .Build();
 
@@ -68,13 +66,13 @@ namespace Bot.Modules
                     return;
                 }
 
-                var cSharpTagEmbed = new SP1XEmbedBuilder()
-                    .WithTitle(cSharpTag.Tag)
-                    .WithDescription(cSharpTag.Content)
+                var cssTagEmbed = new SP1XEmbedBuilder()
+                    .WithTitle(cssTag.Tag)
+                    .WithDescription(cssTag.Content)
                     .WithStyle(EmbedStyle.Information)
                     .Build();
 
-                await Context.Channel.SendMessageAsync(embed: cSharpTagEmbed);
+                await Context.Channel.SendMessageAsync(embed: cssTagEmbed);
                 return;
             }
 
@@ -83,12 +81,12 @@ namespace Bot.Modules
             switch (arguments[0])
             {
                 case "create":
-                    var cSharpTag = await _DataAccessLayer.GetCSharpTag(arguments[1]);
-                    if (cSharpTag != null)
+                    var cssTag = await _DataAccessLayer.GetCSSTag(arguments[1]);
+                    if (cssTag != null)
                     {
                         var embed = new SP1XEmbedBuilder()
                             .WithTitle("Already Exists")
-                            .WithDescription("There already exists a C# Tag with that name.")
+                            .WithDescription("There already exists a CSS Tag with that name.")
                             .WithStyle(EmbedStyle.Error)
                             .Build();
 
@@ -100,7 +98,7 @@ namespace Bot.Modules
                     {
                         var embed = new SP1XEmbedBuilder()
                             .WithTitle("Access Denied!")
-                            .WithDescription("You need to be a student or administrator to create a C# Tag.")
+                            .WithDescription("You need to be a student or administrator to create a CSS Tag.")
                             .WithStyle(EmbedStyle.Error)
                             .Build();
 
@@ -108,26 +106,26 @@ namespace Bot.Modules
                         return;
                     }
 
-                    await _DataAccessLayer.CreateCSharpTag(arguments[1], Context.User.Id,
+                    await _DataAccessLayer.CreateCSSTag(arguments[1], Context.User.Id,
                         string.Join(" ", arguments.Skip(2)));
 
-                    var prefix = await _DataAccessLayer.GetGuildPrefix(Context.Guild.Id);
+                    var prefix = "!";
 
                     var created = new SP1XEmbedBuilder()
-                        .WithTitle("C# Tag Created!")
+                        .WithTitle("CSS Tag Created!")
                         .WithDescription(
-                            $"The C# Tag has been successfully created. You can view it by using `{prefix}csharptag {arguments[1]}`")
+                            $"The CSS Tag has been successfully created. You can view it by using `{prefix}csstag {arguments[1]}`")
                         .WithStyle(EmbedStyle.Success)
                         .Build();
                     await Context.Channel.SendMessageAsync(embed: created);
                     break;
                 case "edit":
-                    var foundCSharpTag = await _DataAccessLayer.GetCSharpTag(arguments[1]);
-                    if (foundCSharpTag == null)
+                    var foundCSSTag = await _DataAccessLayer.GetCSSTag(arguments[1]);
+                    if (foundCSSTag == null)
                     {
                         var embed = new SP1XEmbedBuilder()
                             .WithTitle("Not Found")
-                            .WithDescription("The C# Tag you requested could not be found.")
+                            .WithDescription("The CSS Tag you requested could not be found.")
                             .WithStyle(EmbedStyle.Error)
                             .Build();
 
@@ -135,11 +133,11 @@ namespace Bot.Modules
                         return;
                     }
 
-                    if (foundCSharpTag.OwnerId != Context.User.Id && !socketGuildUser.GuildPermissions.Administrator)
+                    if (foundCSSTag.OwnerId != Context.User.Id && !socketGuildUser.GuildPermissions.Administrator)
                     {
                         var embed = new SP1XEmbedBuilder()
                             .WithTitle("Access Denied!")
-                            .WithDescription("You need to be a student or administrator to create a C# Tag.")
+                            .WithDescription("You need to be a student or administrator to create a CSS Tag.")
                             .WithStyle(EmbedStyle.Error)
                             .Build();
 
@@ -147,22 +145,22 @@ namespace Bot.Modules
                         return;
                     }
 
-                    await _DataAccessLayer.EditCSharpTagContent(arguments[1], string.Join(" ", arguments.Skip(2)));
+                    await _DataAccessLayer.EditCSSTagContent(arguments[1], string.Join(" ", arguments.Skip(2)));
 
                     var edited = new SP1XEmbedBuilder()
                         .WithTitle("Access Denied!")
-                        .WithDescription("You need to be a student or administrator to create a C# Tag.")
+                        .WithDescription("You need to be a student or administrator to create a CSS Tag.")
                         .WithStyle(EmbedStyle.Error)
                         .Build();
                     await Context.Channel.SendMessageAsync(embed: edited);
                     break;
                 case "transfer":
-                    var cSharpTagToTransfer = await _DataAccessLayer.GetCSharpTag(arguments[1]);
-                    if (cSharpTagToTransfer == null)
+                    var cssTagToTransfer = await _DataAccessLayer.GetCSSTag(arguments[1]);
+                    if (cssTagToTransfer == null)
                     {
                         var embed = new SP1XEmbedBuilder()
                             .WithTitle("Not Found!")
-                            .WithDescription("That C# could not be found.")
+                            .WithDescription("That CSS Tag could not be found.")
                             .WithStyle(EmbedStyle.Error)
                             .Build();
 
@@ -183,13 +181,11 @@ namespace Bot.Modules
                         return;
                     }
 
-                    if (cSharpTagToTransfer.OwnerId != this.Context.User.Id &&
-                        !socketGuildUser.GuildPermissions.Administrator)
+                    if (cssTagToTransfer.OwnerId != this.Context.User.Id && !socketGuildUser.GuildPermissions.Administrator)
                     {
                         var embed = new SP1XEmbedBuilder()
                             .WithTitle("Access Denied!")
-                            .WithDescription(
-                                "You need to be the owner of this tag or an administrator to edit the content of this C#.")
+                            .WithDescription("You need to be the owner of this tag or an administrator to edit the content of this CSS Tag.")
                             .WithStyle(EmbedStyle.Error)
                             .Build();
 
@@ -197,10 +193,10 @@ namespace Bot.Modules
                         return;
                     }
 
-                    await _DataAccessLayer.EditCSharpTagOwner(arguments[1], userId);
+                    await _DataAccessLayer.EditCSSTagOwner(arguments[1], userId);
 
                     var success = new SP1XEmbedBuilder()
-                        .WithTitle("C# Ownership Transferred")
+                        .WithTitle("CSS Tag Ownership Transferred")
                         .WithDescription($"The ownership of the tag has been transferred to <@{userId}>.")
                         .WithStyle(EmbedStyle.Success)
                         .Build();
@@ -209,13 +205,13 @@ namespace Bot.Modules
                     break;
                 case "delete":
 
-                    var cSharpTagtoDelete = await _DataAccessLayer.GetCSharpTag(arguments[1]);
+                    var cssTagtoDelete = await _DataAccessLayer.GetCSSTag(arguments[1]);
 
-                    if (cSharpTagtoDelete == null)
+                    if (cssTagtoDelete == null)
                     {
                         var embed = new SP1XEmbedBuilder()
                             .WithTitle("Not Found!")
-                            .WithDescription("that C# Tag could not be found.")
+                            .WithDescription("That CSS Tag could not be found.")
                             .WithStyle(EmbedStyle.Error)
                             .Build();
 
@@ -223,13 +219,11 @@ namespace Bot.Modules
                         return;
                     }
 
-                    if (cSharpTagtoDelete.OwnerId != this.Context.User.Id &&
-                        !socketGuildUser.GuildPermissions.Administrator)
+                    if (cssTagtoDelete.OwnerId != this.Context.User.Id && !socketGuildUser.GuildPermissions.Administrator)
                     {
                         var embed = new SP1XEmbedBuilder()
                             .WithTitle("Access Denied!")
-                            .WithDescription(
-                                "You need to be the owner of this tag or an administrator to edit the content of this C# Tag.")
+                            .WithDescription("You need to be the owner of this tag or an administrator to delete the content of this CSS Tag.")
                             .WithStyle(EmbedStyle.Error)
                             .Build();
 
@@ -237,11 +231,11 @@ namespace Bot.Modules
                         return;
                     }
 
-                    await _DataAccessLayer.DeleteCSharpTag(arguments[1]);
+                    await _DataAccessLayer.DeleteCSSTag(arguments[1]);
 
                     var deleted = new SP1XEmbedBuilder()
-                        .WithTitle("C# Tag Deleted!")
-                        .WithDescription("The C# Tag was successfully deleted.")
+                        .WithTitle("CSS Tag Deleted!")
+                        .WithDescription("The CSS Tag was successfully deleted.")
                         .WithStyle(EmbedStyle.Success)
                         .Build();
 

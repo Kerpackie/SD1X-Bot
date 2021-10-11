@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Bot.Common;
-using Data.Models;
 using Discord.Commands;
 
-namespace Bot.Modules
+namespace Bot.Modules.Meme
 {
-    public class MemeModule : ModuleBase<SocketCommandContext>
+    public class Meme : ModuleBase<SocketCommandContext>
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public MemeModule(IHttpClientFactory httpClientFactory)
+        public Meme(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
@@ -24,7 +19,7 @@ namespace Bot.Modules
         {
             var httpClient = _httpClientFactory.CreateClient();
             var response = await httpClient.GetStringAsync("https://meme-api.herokuapp.com/gimme");
-            var meme = Meme.FromJson(response);
+            var meme = Data.Models.Meme.FromJson(response);
 
             if (meme == null)
             {
