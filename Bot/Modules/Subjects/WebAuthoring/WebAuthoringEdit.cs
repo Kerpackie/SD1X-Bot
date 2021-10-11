@@ -1,4 +1,5 @@
 ﻿using Bot.Common;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,7 @@ namespace Bot.Modules.Subjects.WebAuthoring
 
         [Command("wordprocessingedit", RunMode = RunMode.Async)]
         [Alias("wpedit")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
         public async Task WordProcessingEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");

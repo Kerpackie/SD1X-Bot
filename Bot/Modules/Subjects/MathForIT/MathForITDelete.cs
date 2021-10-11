@@ -19,6 +19,7 @@ namespace Bot.Modules.Subjects.MathForIT
         }
 
         [Command("mathdelete", RunMode = RunMode.Async)]
+        [RequireUserPermission(GuildPermission.SendMessages)]
 
         public async Task MathDeleteCmd(string name, [Remainder] string argument)
         {

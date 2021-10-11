@@ -18,6 +18,7 @@ namespace Bot.Modules.Subjects.Communications
 
         [Command("communicationsedit", RunMode = RunMode.Async)]
         [Alias("commsedit")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
         public async Task CommunicationsEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");

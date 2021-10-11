@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bot.Common;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,7 @@ namespace Bot.Modules.Subjects.SoftwareArchitecture
 
         [Command("softwarearchedit", RunMode = RunMode.Async)]
         [Alias("softwareedit")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
         public async Task SoftwareArchitectureEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");

@@ -19,6 +19,7 @@ namespace Bot.Modules.Subjects.FOOP
 
         [Command("foopedit", RunMode = RunMode.Async)]
         [Alias("oopedit")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
         public async Task FOOPEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");
