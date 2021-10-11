@@ -21,14 +21,12 @@ namespace Bot.Modules.Subjects.PPD
         [Command("ppdcreate", RunMode = RunMode.Async)]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task PPDCreateCmd(string name, [Remainder] string argument)
+        public async Task PPDCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
             var subject = "PPD";
 
-            var socketGuildUser = Context.User as SocketGuildUser;
-
-            var ppdAssignment = await _DataAccessLayer.GetAssignment(subject, name);
+            var ppdAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (ppdAssignment != null)
             {
                 var embed = new SP1XEmbedBuilder()
@@ -49,7 +47,7 @@ namespace Bot.Modules.Subjects.PPD
             var created = new SP1XEmbedBuilder()
                 .WithTitle("Assignment Created!")
                 .WithDescription(
-                    $"The Assignment has been successfully created. You can view it by using `!{prefix}ppd {arguments[0]}`")
+                    $"The Assignment has been successfully created. You can view it by using `{prefix}ppd {arguments[0]}`")
                 .WithStyle(EmbedStyle.Success)
                 .Build();
             await Context.Channel.SendMessageAsync(embed: created);

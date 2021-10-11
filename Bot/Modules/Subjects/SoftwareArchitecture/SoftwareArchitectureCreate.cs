@@ -22,14 +22,12 @@ namespace Bot.Modules.Subjects.SoftwareArchitecture
         [Alias("softwarecreate")]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task SoftwareArchitectureCreateCmd(string name, [Remainder] string argument)
+        public async Task SoftwareArchitectureCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
             var subject = "Software Architecture";
 
-            var socketGuildUser = Context.User as SocketGuildUser;
-
-            var softwareAssignment = await _DataAccessLayer.GetAssignment(subject, name);
+            var softwareAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (softwareAssignment != null)
             {
                 var embed = new SP1XEmbedBuilder()
@@ -49,7 +47,7 @@ namespace Bot.Modules.Subjects.SoftwareArchitecture
 
             var created = new SP1XEmbedBuilder()
                 .WithTitle("Assignment Created!")
-                .WithDescription($"The Assignment has been successfully created. You can view it by using `!{prefix}software {arguments[0]}`")
+                .WithDescription($"The Assignment has been successfully created. You can view it by using `{prefix}software {arguments[0]}`")
                 .WithStyle(EmbedStyle.Success)
                 .Build();
             await Context.Channel.SendMessageAsync(embed: created);

@@ -22,14 +22,12 @@ namespace Bot.Modules.Subjects.WebAuthoring
         [Alias("webauthcreate")]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task WordProcessingCreateCmd(string name, [Remainder] string argument)
+        public async Task WordProcessingCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
             var subject = "Web Authoring";
 
-            var socketGuildUser = Context.User as SocketGuildUser;
-
-            var foopAssignment = await _DataAccessLayer.GetAssignment(subject, name);
+            var foopAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (foopAssignment != null)
             {
                 var embed = new SP1XEmbedBuilder()
