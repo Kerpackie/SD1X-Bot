@@ -19,6 +19,7 @@ namespace Bot.Modules.Subjects.FOOP
 
         [Command("foopdelete", RunMode = RunMode.Async)]
         [Alias("oopdelete")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
         public async Task FOOPDeleteCmd([Remainder] string name)
         {
             var subject = "FOOP";

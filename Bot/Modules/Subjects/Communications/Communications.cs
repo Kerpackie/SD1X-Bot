@@ -19,6 +19,7 @@ namespace Bot.Modules.Subjects.Communications
 
         [Command("communications", RunMode = RunMode.Async)]
         [Alias("comms")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
 
         public async Task CommunicationsCmd([Remainder] string argument)
         {

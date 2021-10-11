@@ -1,4 +1,5 @@
 ﻿using Bot.Common;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,7 @@ namespace Bot.Modules.Subjects.WebAuthoring
 
         [Command("webauthoring", RunMode = RunMode.Async)]
         [Alias("webauth")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
 
         public async Task WordProcessingCmd([Remainder] string argument)
         {

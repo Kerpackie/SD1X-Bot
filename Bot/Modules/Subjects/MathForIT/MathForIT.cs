@@ -18,6 +18,7 @@ namespace Bot.Modules.Subjects.MathForIT
         }
 
         [Command("math", RunMode = RunMode.Async)]
+        [RequireUserPermission(GuildPermission.SendMessages)]
 
         public async Task MathForITCmd([Remainder] string argument)
         {

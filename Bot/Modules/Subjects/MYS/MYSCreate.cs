@@ -21,14 +21,12 @@ namespace Bot.Modules.Subjects.MYS
         [Command("myscreate", RunMode = RunMode.Async)]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task MYSCreateCmd(string name, [Remainder] string argument)
+        public async Task MYSCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
             var subject = "MYS";
 
-            var socketGuildUser = Context.User as SocketGuildUser;
-
-            var mysAssignment = await _DataAccessLayer.GetAssignment(subject, name);
+            var mysAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (mysAssignment != null)
             {
                 var embed = new SP1XEmbedBuilder()
@@ -49,7 +47,7 @@ namespace Bot.Modules.Subjects.MYS
             var created = new SP1XEmbedBuilder()
                 .WithTitle("Assignment Created!")
                 .WithDescription(
-                    $"The Assignment has been successfully created. You can view it by using `!{prefix}mys {arguments[0]}`")
+                    $"The Assignment has been successfully created. You can view it by using `{prefix}mys {arguments[0]}`")
                 .WithStyle(EmbedStyle.Success)
                 .Build();
             await Context.Channel.SendMessageAsync(embed: created);

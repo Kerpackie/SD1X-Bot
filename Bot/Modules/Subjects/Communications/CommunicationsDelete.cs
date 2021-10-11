@@ -20,6 +20,7 @@ namespace Bot.Modules.Subjects.Communications
 
         [Command("communicationsdelete", RunMode = RunMode.Async)]
         [Alias("commsdelete")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
 
         public async Task CommunicationsDeleteCmd(string name, [Remainder] string argument)
         {

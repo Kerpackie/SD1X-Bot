@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bot.Common;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,7 @@ namespace Bot.Modules.Subjects.SoftwareArchitecture
 
         [Command("softwarearchitecture", RunMode = RunMode.Async)]
         [Alias("software")]
+        [RequireUserPermission(GuildPermission.SendMessages)]
 
         public async Task SoftwareArchitectureCmd([Remainder] string argument)
         {
