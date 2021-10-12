@@ -50,14 +50,6 @@ namespace Data
 
         public async Task CreateAssignment(string subject, ulong ownerId, string name, string content)
         {
-            //var assignment = await _dbContext.Assignments
-            //    .FirstOrDefaultAsync(x => x.MessageId == messageId);
-
-            //if (messageId != 0)
-            //{
-            //    return;
-            //}
-
             _dbContext.Add(new Assignment
             {
                 Subject = subject,
@@ -97,21 +89,6 @@ namespace Data
             assignment.Content = content;
             await _dbContext.SaveChangesAsync();
         }
-
-        //public async Task EditAssignmentContentSubject(string subject, string name, string content)
-        //{
-        //    var assignment = await _dbContext.Assignments
-        //        .Where(x => x.Subject == subject && x.Name == name)
-        //        .FirstOrDefaultAsync();
-          
-        //    if (assignment is null)
-        //    {
-        //        return;
-        //    }
-
-        //    assignment.Content = content;
-        //    await _dbContext.SaveChangesAsync();
-        //}
 
         public async Task EditAssignmentOwner(int id, ulong ownerId)
         {
