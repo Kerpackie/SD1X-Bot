@@ -23,7 +23,7 @@ namespace Bot.Modules.Subjects.FOOP
         [RequireUserPermission(GuildPermission.SendMessages)]
         public async Task FOOPDeleteCmd([Remainder] string name)
         {
-            var subject = "FOOP";
+            var subject = Common.Subjects.FOOP;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

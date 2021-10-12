@@ -23,7 +23,7 @@ namespace Bot.Modules.Subjects.SoftwareArchitecture
         public async Task SoftwareArchitectureEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Software Architecture";
+            var subject = Common.Subjects.SoftwareArchitecture;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

@@ -25,7 +25,7 @@ namespace Bot.Modules.Subjects.SoftwareArchitecture
         public async Task SoftwareArchitectureCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Software Architecture";
+            var subject = Common.Subjects.SoftwareArchitecture;
 
             if (arguments.Count() == 1 && arguments[0] != "create")
             {

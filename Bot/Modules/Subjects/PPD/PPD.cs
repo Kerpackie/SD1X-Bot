@@ -24,7 +24,7 @@ namespace Bot.Modules.Subjects.PPD
         public async Task PPDCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "PPD";
+            var subject = Common.Subjects.PPD;
 
             if (arguments.Count() == 1 && arguments[0] != "create")
             {

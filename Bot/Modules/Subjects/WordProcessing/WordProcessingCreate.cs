@@ -23,7 +23,7 @@ namespace Bot.Modules.Subjects.WordProcessing
         public async Task WordProcessingCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Word Processing";
+            var subject = Common.Subjects.WordProcessing;
 
             var foopAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (foopAssignment == null)

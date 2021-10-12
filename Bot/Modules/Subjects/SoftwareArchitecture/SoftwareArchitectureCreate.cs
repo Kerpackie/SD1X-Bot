@@ -25,7 +25,7 @@ namespace Bot.Modules.Subjects.SoftwareArchitecture
         public async Task SoftwareArchitectureCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Software Architecture";
+            var subject = Common.Subjects.SoftwareArchitecture;
 
             var softwareAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (softwareAssignment != null)

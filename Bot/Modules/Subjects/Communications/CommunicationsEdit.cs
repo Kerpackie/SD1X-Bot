@@ -23,7 +23,7 @@ namespace Bot.Modules.Subjects.Communications
         public async Task CommunicationsEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Communications";
+            var subject = Common.Subjects.Communications;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

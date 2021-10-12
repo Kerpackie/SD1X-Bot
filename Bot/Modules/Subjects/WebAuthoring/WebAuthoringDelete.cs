@@ -22,9 +22,9 @@ namespace Bot.Modules.Subjects.WebAuthoring
         [Alias("webauthdelete")]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task WordProcessingDeleteCmd(string name, [Remainder] string argument)
+        public async Task WordProcessingDeleteCmd(string name)
         {
-            var subject = "Web Authoring";
+            var subject = Common.Subjects.WebAuthoring;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

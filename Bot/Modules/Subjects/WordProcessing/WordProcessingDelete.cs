@@ -22,9 +22,9 @@ namespace Bot.Modules.Subjects.WordProcessing
         [Alias("wpcreate")]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task WordProcessingDeleteCmd(string name, [Remainder] string argument)
+        public async Task WordProcessingDeleteCmd(string name)
         {
-            var subject = "Word Processing";
+            var subject = Common.Subjects.WordProcessing;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

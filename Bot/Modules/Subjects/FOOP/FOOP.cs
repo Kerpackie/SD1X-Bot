@@ -25,7 +25,7 @@ namespace Bot.Modules.Subjects.FOOP
         public async Task FOOPCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "FOOP";
+            var subject = Common.Subjects.FOOP;
 
             if (arguments.Count() == 1 && arguments[0] != "create")
             {

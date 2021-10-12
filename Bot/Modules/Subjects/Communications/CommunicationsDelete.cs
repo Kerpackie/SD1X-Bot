@@ -23,9 +23,9 @@ namespace Bot.Modules.Subjects.Communications
         [Alias("commsdelete")]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task CommunicationsDeleteCmd(string name, [Remainder] string argument)
+        public async Task CommunicationsDeleteCmd(string name)
         {
-            var subject = "Communications";
+            var subject = Common.Subjects.Communications;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

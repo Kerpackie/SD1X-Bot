@@ -24,7 +24,7 @@ namespace Bot.Modules.Subjects.PPD
         public async Task PPDCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "PPD";
+            var subject = Common.Subjects.PPD;
 
             var ppdAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (ppdAssignment != null)

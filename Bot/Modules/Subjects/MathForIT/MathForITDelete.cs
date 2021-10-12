@@ -22,9 +22,9 @@ namespace Bot.Modules.Subjects.MathForIT
         [Command("mathdelete", RunMode = RunMode.Async)]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task MathDeleteCmd(string name, [Remainder] string argument)
+        public async Task MathDeleteCmd(string name)
         {
-            var subject = "Math for IT";
+            var subject = Common.Subjects.MathForIT;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

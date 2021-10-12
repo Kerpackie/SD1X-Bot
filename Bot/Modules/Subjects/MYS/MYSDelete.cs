@@ -22,9 +22,9 @@ namespace Bot.Modules.Subjects.MYS
         [Command("mysdelete", RunMode = RunMode.Async)]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task MYSDeleteCmd(string name, [Remainder] string argument)
+        public async Task MYSDeleteCmd(string name)
         {
-            var subject = "MYS";
+            var subject = Common.Subjects.MYS;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

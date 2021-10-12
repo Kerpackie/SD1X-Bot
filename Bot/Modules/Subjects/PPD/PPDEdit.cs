@@ -22,7 +22,7 @@ namespace Bot.Modules.Subjects.PPD
         public async Task PPDEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "PPD";
+            var subject = Common.Subjects.PPD;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 
