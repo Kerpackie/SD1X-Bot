@@ -25,7 +25,7 @@ namespace Bot.Modules.Subjects.Communications
 
         public async Task CommunicationsDeleteCmd(string name)
         {
-            var subject = "Communications";
+            var subject = Common.Subjects.Communications;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 
