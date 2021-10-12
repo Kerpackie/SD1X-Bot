@@ -24,7 +24,7 @@ namespace Bot.Modules.Subjects.MathForIT
         public async Task MathCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Math for IT";
+            var subject = Common.Subjects.MathForIT;
 
             var mathAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (mathAssignment != null)

@@ -22,7 +22,7 @@ namespace Bot.Modules.Subjects.MYS
         public async Task MYSEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "MYS";
+            var subject = Common.Subjects.MYS;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

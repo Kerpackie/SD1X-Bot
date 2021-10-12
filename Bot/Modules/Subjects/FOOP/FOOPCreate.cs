@@ -25,7 +25,7 @@ namespace Bot.Modules.Subjects.FOOP
         public async Task FOOPCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "FOOP";
+            var subject = Common.Subjects.FOOP;
 
             var foopAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (foopAssignment != null)

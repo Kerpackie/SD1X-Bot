@@ -24,7 +24,7 @@ namespace Bot.Modules.Subjects.MathForIT
         public async Task MathForITCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Math for IT";
+            var subject = Common.Subjects.MathForIT;
 
             if (arguments.Count() == 1 && arguments[0] != "create")
             {

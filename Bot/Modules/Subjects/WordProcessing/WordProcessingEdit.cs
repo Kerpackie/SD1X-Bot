@@ -23,7 +23,7 @@ namespace Bot.Modules.Subjects.WordProcessing
         public async Task WordProcessingEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Word Processing";
+            var subject = Common.Subjects.WordProcessing;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

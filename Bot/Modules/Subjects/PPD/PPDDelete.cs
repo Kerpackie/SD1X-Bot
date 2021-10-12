@@ -22,9 +22,9 @@ namespace Bot.Modules.Subjects.PPD
         [Command("ppddelete", RunMode = RunMode.Async)]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task PPDDeleteCmd(string name, [Remainder] string argument)
+        public async Task PPDDeleteCmd(string name)
         {
-            var subject = "PPD";
+            var subject = Common.Subjects.PPD;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

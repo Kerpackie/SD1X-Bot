@@ -25,7 +25,7 @@ namespace Bot.Modules.Subjects.WebAuthoring
         public async Task WordProcessingCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Web Authoring";
+            var subject = Common.Subjects.WebAuthoring;
 
             if (arguments.Count() == 1 && arguments[0] != "create")
             {

@@ -25,7 +25,7 @@ namespace Bot.Modules.Subjects.WordProcessing
         public async Task WordProcessingCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Word Processing";
+            var subject = Common.Subjects.WordProcessing;
 
             if (arguments.Count() == 1 && arguments[0] != "create")
             {

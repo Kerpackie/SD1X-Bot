@@ -24,7 +24,7 @@ namespace Bot.Modules.Subjects.MYS
         public async Task MYSCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "MYS";
+            var subject = Common.Subjects.MYS;
 
             var mysAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (mysAssignment != null)

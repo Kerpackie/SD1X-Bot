@@ -23,9 +23,9 @@ namespace Bot.Modules.Subjects.SoftwareArchitecture
         [Alias("softwaredelete")]
         [RequireUserPermission(GuildPermission.SendMessages)]
 
-        public async Task SoftwareArchitectureDeleteCmd(string name, [Remainder] string argument)
+        public async Task SoftwareArchitectureDeleteCmd(string name)
         {
-            var subject = "Software Architecture";
+            var subject = Common.Subjects.SoftwareArchitecture;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

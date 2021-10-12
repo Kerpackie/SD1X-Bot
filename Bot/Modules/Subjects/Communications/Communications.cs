@@ -25,7 +25,7 @@ namespace Bot.Modules.Subjects.Communications
         public async Task CommunicationsCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Communications";
+            var subject = Common.Subjects.Communications;
 
             if (arguments.Count() == 1 && arguments[0] != "create")
             {

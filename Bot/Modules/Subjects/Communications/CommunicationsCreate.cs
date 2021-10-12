@@ -25,7 +25,7 @@ namespace Bot.Modules.Subjects.Communications
         public async Task CommunicationsCreateCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Communications";
+            var subject = Common.Subjects.Communications;
 
             var commsAssignment = await _DataAccessLayer.GetAssignment(subject, arguments[0]);
             if (commsAssignment != null)

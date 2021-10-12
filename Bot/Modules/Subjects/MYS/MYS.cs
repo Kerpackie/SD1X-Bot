@@ -24,7 +24,7 @@ namespace Bot.Modules.Subjects.MYS
         public async Task MYSCmd([Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "MYS";
+            var subject = Common.Subjects.MYS;
 
             if (arguments.Count() == 1 && arguments[0] != "create")
             {

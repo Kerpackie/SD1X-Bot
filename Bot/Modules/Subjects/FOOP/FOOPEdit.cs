@@ -24,7 +24,7 @@ namespace Bot.Modules.Subjects.FOOP
         public async Task FOOPEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "FOOP";
+            var subject = Common.Subjects.FOOP;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 

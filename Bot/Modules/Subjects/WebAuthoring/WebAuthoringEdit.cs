@@ -23,7 +23,7 @@ namespace Bot.Modules.Subjects.WebAuthoring
         public async Task WordProcessingEditCmd(string name, string newname, [Remainder] string argument)
         {
             var arguments = argument.Split(" ");
-            var subject = "Web Authoring";
+            var subject = Common.Subjects.WebAuthoring;
 
             var socketGuildUser = Context.User as SocketGuildUser;
 
