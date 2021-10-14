@@ -21,6 +21,7 @@ namespace Data
         {
             return await _dbContext.TimeTables
                 .Where(x => x.GuildId == guildid && x.Day == day)
+                .OrderBy(x => x.Time)
                 .ToListAsync();
         }
 
