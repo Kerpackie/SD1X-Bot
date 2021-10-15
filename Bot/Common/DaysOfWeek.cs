@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Bot.Common
 {
-    class DaysOfWeek
+    public static class DaysOfWeek
     {
-        public string Monday = "Monday";
-        public string Tuesday = "Tuesday";
-        public string Wednesday = "Wednesday";
-        public string Thursday = "Thursday";
-        public string Friday = "Friday";
+        public static string Monday = "Monday";
+        public static string Tuesday = "Tuesday";
+        public static string Wednesday = "Wednesday";
+        public static string Thursday = "Thursday";
+        public static string Friday = "Friday";
     }
 }

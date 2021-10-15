@@ -25,6 +25,14 @@ namespace Data
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<TimeTable>> GetTimeTableDayTime(ulong guildid, string day, string time)
+        {
+            return await _dbContext.TimeTables
+                .Where(x => x.GuildId == guildid && x.Day == day && x.Time == time)
+                .OrderBy(x => x.Time)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<TimeTable>> GetTimeTables(ulong guildId)
         {
             return await _dbContext.TimeTables
@@ -47,10 +55,10 @@ namespace Data
            
         }
 
-        public async Task DeleteTimeTable(ulong guildid, string day, string subject, string time)
+        public async Task DeleteTimeTable(ulong guildid, string day, string time)
         {
             var timetable = await _dbContext.TimeTables
-                .FirstOrDefaultAsync(x => x.GuildId == guildid && x.Day == day && x.Subject == subject && x.Time == time);
+                .FirstOrDefaultAsync(x => x.GuildId == guildid && x.Day == day && x.Time == time);
 
             if (timetable is null)
             {
