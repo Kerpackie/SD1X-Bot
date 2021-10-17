@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Data.Context;
 using Data.Models;
@@ -15,6 +14,58 @@ namespace Data
         public DataAccessLayer(SP1XDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<IEnumerable<TimeTable>> GetTimeTableDay(ulong guildid, string day)
+        {
+            return await _dbContext.TimeTables
+                .Where(x => x.GuildId == guildid && x.Day == day)
+                .OrderBy(x => x.Time)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<TimeTable>> GetTimeTableDayTime(ulong guildid, string day, string time)
+        {
+            return await _dbContext.TimeTables
+                .Where(x => x.GuildId == guildid && x.Day == day && x.Time == time)
+                .OrderBy(x => x.Time)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<TimeTable>> GetTimeTables(ulong guildId)
+        {
+            return await _dbContext.TimeTables
+                .Where(x => x.GuildId == guildId)
+                .ToListAsync();
+        }
+
+        public async Task CreateTimeTable(ulong guildId, string day, string subject, string time, string location)
+        {
+            _dbContext.Add(new TimeTable
+            {
+                GuildId = guildId,
+                Day = day,
+                Subject = subject,
+                Time = time,
+                Location = location,
+            });
+
+            await _dbContext.SaveChangesAsync();
+           
+        }
+
+        public async Task DeleteTimeTable(ulong guildid, string day, string time)
+        {
+            var timetable = await _dbContext.TimeTables
+                .FirstOrDefaultAsync(x => x.GuildId == guildid && x.Day == day && x.Time == time);
+
+            if (timetable is null)
+            {
+                return;
+            }
+
+            _dbContext.Remove(timetable);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<Assignment> GetAssignment(string subject, string name)
@@ -50,14 +101,6 @@ namespace Data
 
         public async Task CreateAssignment(string subject, ulong ownerId, string name, string content)
         {
-            //var assignment = await _dbContext.Assignments
-            //    .FirstOrDefaultAsync(x => x.MessageId == messageId);
-
-            //if (messageId != 0)
-            //{
-            //    return;
-            //}
-
             _dbContext.Add(new Assignment
             {
                 Subject = subject,
@@ -97,21 +140,6 @@ namespace Data
             assignment.Content = content;
             await _dbContext.SaveChangesAsync();
         }
-
-        //public async Task EditAssignmentContentSubject(string subject, string name, string content)
-        //{
-        //    var assignment = await _dbContext.Assignments
-        //        .Where(x => x.Subject == subject && x.Name == name)
-        //        .FirstOrDefaultAsync();
-          
-        //    if (assignment is null)
-        //    {
-        //        return;
-        //    }
-
-        //    assignment.Content = content;
-        //    await _dbContext.SaveChangesAsync();
-        //}
 
         public async Task EditAssignmentOwner(int id, ulong ownerId)
         {
@@ -436,13 +464,13 @@ namespace Data
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Notes> GetNote(string name)
+        public async Task<Note> GetNote(string name)
         {
             return await _dbContext.Notes
                 .FirstOrDefaultAsync(x => x.Name == name);
         }
 
-        public async Task<IEnumerable<Notes>> GetNotes()
+        public async Task<IEnumerable<Note>> GetNotes()
         {
             return await _dbContext.Notes
                 .ToListAsync();
@@ -458,7 +486,7 @@ namespace Data
                 return;
             }
 
-            _dbContext.Add(new Notes
+            _dbContext.Add(new Note
             {
                 Name = name,
                 OwnerId = ownerId,

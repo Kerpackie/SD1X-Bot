@@ -57,7 +57,8 @@ namespace Bot
                                 context.Configuration["Database"],
                                 new MySqlServerVersion(new Version(8, 0, 23))))
                         .AddSingleton<DataAccessLayer>()
-                        .AddSingleton<AssignmentControl>();
+                        .AddSingleton<AssignmentControl>()
+                        .AddSingleton<TimeTableManager>();
                 })
                 .UseConsoleLifetime();
 
